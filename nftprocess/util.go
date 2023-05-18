@@ -11,12 +11,12 @@ import (
 	"github.com/shopspring/decimal"
 	log "github.com/sirupsen/logrus"
 
-	assetgrpc "gitlab.com/tcam-engineering/platform/tcam-serverless/internal/app/asset/grpc"
-	ledgergrpc "gitlab.com/tcam-engineering/platform/tcam-serverless/internal/app/ledger/grpc"
-	"gitlab.com/tcam-engineering/platform/tcam-serverless/internal/pkg/configutil"
-	"gitlab.com/tcam-engineering/platform/tcam-serverless/internal/pkg/cryptoutil"
-	"gitlab.com/tcam-engineering/platform/tcam-serverless/internal/pkg/domainutil"
-	"gitlab.com/tcam-engineering/platform/tcam-serverless/internal/pkg/service/http"
+	assetgrpc "internal/app/asset/grpc"
+	ledgergrpc "internal/app/ledger/grpc"
+	"internal/pkg/configutil"
+	"internal/pkg/cryptoutil"
+	"internal/pkg/domainutil"
+	"internal/pkg/service/http"
 )
 
 func checkOrderExpiry(order assetgrpc.AssetOrder) (bool, error) {

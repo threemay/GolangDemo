@@ -9,29 +9,12 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/ssm"
 	"github.com/google/uuid"
 
-	"gitlab.com/tcam-engineering/platform/tcam-serverless/internal/app/token/database"
-	"gitlab.com/tcam-engineering/platform/tcam-serverless/internal/pkg/databaseutil"
-	"gitlab.com/tcam-engineering/platform/tcam-serverless/internal/pkg/nftutil"
-
-	assetgrpc "gitlab.com/tcam-engineering/platform/tcam-serverless/internal/app/asset/grpc"
+	"/internal/pkg/nftutil"
 )
 
 type MintNFTWorkflowStep struct {
-	secretMgr   *secretsmanager.Client
-	txnProvider databaseutil.TransactionProvider
-	txRepo      database.OnChainTxRepository
-	tokenRepo   database.TokenRepository
-	assetClient assetgrpc.AssetClient
-	ssmClient   *ssm.Client
-}
-
-func (s *MintNFTWorkflowStep) AutoMigrate() error {
-	tx := s.txnProvider.NoTransaction(context.TODO())
-	err := s.txRepo.AutoMigrate(tx)
-	if err != nil {
-		return fmt.Errorf("failed migrate on-chain tx schema %w", err)
-	}
-	return nil
+	secretMgr *secretsmanager.Client
+	ssmClient *ssm.Client
 }
 
 func (s MintNFTWorkflowStep) mintToken(ctx context.Context, contract *database.TokenContract, tokenID string) (*database.OnChainTransaction, error) {
